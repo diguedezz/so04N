@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
     char inputName[50];
     char outputName[50];
 
-    inputFile = fopen(argv[1], "r");  // linha de comando (fopen = open file, retorna ponteiro, por isso podemos criar a condição de tratamento abaixo)
-    outputFile = fopen(argv[2], "w"); // linha de comando
-    if (inputFile == NULL)            // null é retornado quando não foi encontrado nenhum arquivo
+    inputFile = fopen(argv[1], "r");    // linha de comando (fopen = open file, retorna ponteiro, por isso podemos criar a condição de tratamento abaixo)
+    outputFile = fopen(argv[2], "w");   // linha de comando
+    if (inputFile == NULL || argc != 3) // null é retornado quando não foi encontrado nenhum arquivo
     {
         printf("Não foi encontrado nenhum arquivo!\n"); // linha de comando
         return 0;
