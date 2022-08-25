@@ -22,7 +22,8 @@ Quantas chamadas de sistemas foram realizadas?
 
 #include <stdio.h>
 
-int main(){
+int main(int argc, char *argv[])
+{
 
     FILE *inputFile;
     FILE *outputFile;
@@ -31,37 +32,34 @@ int main(){
     char inputName[50];
     char outputName[50];
 
-    printf("Digite o arquivo de entrada:\n");
-    scanf("%s", inputName);
-    printf("Digite o arquivo de saída:\n");
-    scanf("%s", outputName);
-    
-    inputFile = fopen(inputName, "r"); //linha de comando (fopen = open file, retorna ponteiro, por isso podemos criar a condição de tratamento abaixo)
-    outputFile = fopen(outputName, "w"); //linha de comando
-    if (inputFile == NULL) //null é retornado quando não foi encontrado nenhum arquivo
+    inputFile = fopen(argv[1], "r");  // linha de comando (fopen = open file, retorna ponteiro, por isso podemos criar a condição de tratamento abaixo)
+    outputFile = fopen(argv[2], "w"); // linha de comando
+    if (inputFile == NULL)            // null é retornado quando não foi encontrado nenhum arquivo
     {
-        printf("Não foi encontrado nenhum arquivo!\n"); //linha de comando
+        printf("Não foi encontrado nenhum arquivo!\n"); // linha de comando
         return 0;
-    }else printf("Sucesso!\n");
+    }
+    else
+        printf("Sucesso!\n");
 
-    //copiando de um arquivo para o outro
-    while(feof(inputFile) == 0)
+    // copiando de um arquivo para o outro
+    while (feof(inputFile) == 0)
     {
-        output = fgets(row, 100, inputFile); //linha de comando
+        output = fgets(row, 100, inputFile); // linha de comando
         if (output)
-            fprintf(outputFile, "%s", row); //linha de comando
+            fprintf(outputFile, "%s", row); // linha de comando
     }
 
-    fclose(inputFile); //linha de comando!
-    fclose(outputFile); //linha de comando!
+    fclose(inputFile);  // linha de comando!
+    fclose(outputFile); // linha de comando!
 
-    //CHECANDO
+    // CHECANDO
     outputFile = fopen(outputName, "r");
-    while(feof(outputFile) == 0) //linha de comando (a função feof serve como controle para verificar se o arquivo ainda tem linhas a serem lidas)
+    while (feof(outputFile) == 0) // linha de comando (a função feof serve como controle para verificar se o arquivo ainda tem linhas a serem lidas)
     {
-        output = fgets(row, 100, outputFile); //linha de comando
+        output = fgets(row, 100, outputFile); // linha de comando
         if (output)
-            printf("%s", row); //linha de comando
+            printf("%s", row); // linha de comando
     }
 
     fclose(outputFile);
