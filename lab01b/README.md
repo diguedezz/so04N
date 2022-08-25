@@ -13,16 +13,15 @@ Exercício1)
 Identifique no seu programa as linhas de comando onde ocorrem chamadas de sistemas ao SO.
 Quantas chamadas de sistemas foram realizadas?
 
-    linhas: 30, 31, 34, 36, 38, 40, 41.
-    total chamadas: 7
+    linhas: 28, 31, 32, 35, 37, 39, 41, 42.
+    total chamadas: 8
 
 --------------------------------------------
 Exercício2)
 Identifique no seu programa as linhas de comando onde ocorrem chamadas de sistemas ao SO.
 Quantas chamadas de sistemas foram realizadas?
 
-    linhas: 34, 35, 36, 37, 39, 40, 43, 44, 45, 48, 50
-            52, 55, 56, 59, 60, 62, 64, 67, 68.
-    total chamadas: 20
+    linhas: 35, 36, 39, 40, 43, 46, 48, 50, 53, 54, 57, 58, 60, 62, 65, 66.
+    total chamadas: 16
 
 --------------------------------------------
