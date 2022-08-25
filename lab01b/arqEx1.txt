@@ -1,1 +1,4 @@
-teste arquivo 1
+Teste Arquivo Strings
+12345
+2424
+53555
