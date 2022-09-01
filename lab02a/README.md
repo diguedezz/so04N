@@ -10,10 +10,12 @@ Pedro Moreno Campos - 32172656
 Respostas ao questionário lab01a:
 --------------------------------------------------------
 1) Rode o programa anterior para valores grandes de n. As
-mensagens sempre estar˜ao ordenadas pelo valor de i?
+mensagens sempre estarão ordenadas pelo valor de i?
 
+Sim, as mensagem sempre serão ordenadas.
 --------------------------------------------------------
 2) O que acontece se o programa anterior escreve-se as mensagens
 para sys.stdout, usando print, ao invés de para sys.stderr?
 
+Não há alteração no resultado pois o código não retorna um erro, logo ele só imprime os resultados quando é usado o stderr, igual o stdout.
 --------------------------------------------------------
