@@ -13,21 +13,44 @@ Problema do Jantar dos Filósofos
 //
 
 #include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <time.h>
+#include <string.h>
 
-#define N          5
-#define LEFT       (i+N-1)%N
-#define RIGHT      (i+1)%N
-#define THINKING   0
-#define HUNGRY     1
-#define EATING     2
+#define N           5
+#define LEFT        (i+N-1)%N
+#define RIGHT       (i+1)%N
+#define THINKING    0
+#define HUNGRY      1
+#define EATING      2
+#define TRUE        1
 
-typedef int semaforo;
+typedef pthread_mutex_t semaforo;
 int estado[N];
-semaforo mutex = 1;
-semaforo s[N];
+pthread_mutex_t mutex;
+pthread_mutex_t s[N];
 
-void filosos(int i){
-    while(true){
+void think();
+void eat();
+void take_forks(int i);
+void put_forks(int i);
+void test(int i);
+void filosos(int i);
+
+void think(){
+    sleep(5);
+}
+
+void eat(){
+    sleep(15);
+}
+
+void filosos(void *args){
+
+    int i = long args;
+
+    while(TRUE){                //looping infinito
         think();
         take_forks();
         eat();
@@ -35,25 +58,46 @@ void filosos(int i){
     }
 }
 
-void take_forks(int i){
-    down(&mutex);                //região crítica
-    estado[i] = HUNGRY;
-    test(i);
-    up(&mutex);
-    down(&s[i])
+void take_forks(int i){             // i = nº de filosofos 
+    pthread_mutex_lock(&mutex);                   // região crítica
+    estado[i] = HUNGRY;             // registra a fome do filosofo
+    test(i);                        // testa se os garfos estao disponiveis
+    pthread_mutex_unlock(&mutex);                     // sai da região critica
+    pthread_mutex_lock(&s[i]);                    // bloqueia caso os garfos nao foram pegos
 }
 
-void put_forks(i){
-    down(&mutex);
-    estado[i] = THINKING;
-    test(LEFT);
-    test(RIGHT);
-    up(&mutex);
+void put_forks(int i){
+    pthread_mutex_lock(&mutex);                   // região crítica
+    if(estado[i] == EATING){
+        printf("O filósofo %d largou os garfos!\n", i);
+    }
+    state[i] = THINKING;            // depois de comer o filosofo larga os garfos e volta a pensar
+    test(LEFT);                     // testa se o vizinho a esuqerda pode comer
+    test(RIGHT);                    // testa se o vizinho a esuqerda pode comer
+    pthread_mutex_unlock(&mutex);                     // sai da região crítica
 }
 
 void test(i){
     if(estado[i] == HUNGRY && estado[LEFT] != EATING && estado[RIGHT] != EATING){
         state[i] = EATING;
+        printf("O filósofo %d está comendo!\n", i);
         up(&s[i]);
+    }else if(estado[i] == HUNGRY){
+        printf("O filósofo %d está esperando para comer!\n", i);
     }
+}
+
+int main(int arg, char* args[], char* envp[]){
+    
+    pthread_t filosos[N];
+    pthread_mutex_init(&mutex, 0);
+    for(int i=0;i<N;i++){
+        pthread_mutex_init(&s[i],0);
+    }
+    for(int i=0;i<N;i++){
+        pthread_mutex_destroy(&s[i]);
+    }
+
+    pthread_mutex_destroy(&mutex);
+    return 0;
 }
